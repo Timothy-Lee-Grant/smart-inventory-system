@@ -1,0 +1,17 @@
+<form id="myForm">
+    <input type="text" id="username" placeholder="user name goes here">
+    <button type="button" onclick="submitForm()">Submit Here! :D</button>
+</form>
+
+<script>
+    function submitForm(){
+        let username = document.getElementById("username").value;
+
+        fetch("/submit", {
+            method: "POST", 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({username}),
+        }).then(response=>response.text())
+        .then(data=>alert("server response: " + data));
+    }
+</script>

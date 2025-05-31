@@ -57,6 +57,7 @@ app.use(express.json());
 app.use('/haha', hahaRoutes);
 app.use('/ree', reeRoutes);
 app.use(express.static('src/public'));
+app.use(express.urlencoded({ extended: true }));
 
 
 app.set('view engine', 'ejs');
@@ -79,6 +80,22 @@ app.get('/', (req, res) => {
 
 app.get('/secondPage', (req, res)=>{
     res.render('another', {title: "Crazy", message: "You have mail"});
+})
+
+app.get('/myform', (req, res)=>{
+    res.render('form');
+})
+
+app.get('/myform2', (req, res)=>{
+    res.render('form2');
+})
+
+app.post('/submit', (req, res)=>{
+    //const {name, message} = req.body;
+    //console.log(`You got a response of name: ${req.body.name} and message: ${req.body.message}`);
+    //console.log(`the optional text was ${req.body.my_optional_text}`);
+    console.log(`my second form ${req.body.username}`)
+    res.send("You got it! :D ")
 })
 
 app.listen(PORT, () => {
