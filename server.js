@@ -62,14 +62,24 @@ app.use(express.static('src/public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(path.resolve(), './src/views'));
 
+app.use((req, res, next)=>{
+    console.log("I am in my middlewear function");
+    next();
+});
 
 app.get('/index', (req, res) => {
+    console.log("inside of the index one");
     res.render('index', { title: "About Us", message: "Here's some info about us." });
 });
 
 app.get('/', (req, res) => {
+    console.log("inside of the second / get one");
     res.send('Welcome to my Node.js server!');
 });
+
+app.get('/secondPage', (req, res)=>{
+    res.render('another', {title: "Crazy", message: "You have mail"});
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
