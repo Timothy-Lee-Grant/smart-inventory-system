@@ -1,53 +1,12 @@
-/*
-import express from 'express';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from "url";
-//import ree from './src/routes/ree.js';
-import ree from './src/routes/ree.js';
-//const ree = require('./src/routes/ree')
-//import ree from './src/routes/ree.js';
-//import { ree } from './src/routes/ree.js';
-
-
-
-
-
-dotenv.config();
-const app = express();
-
-const PORT = process.env.PORT || 5000;
-
-app.use(express.json());
-app.use('/ree', ree);
-
-app.get('/', (req,res)=>res.send("this is my test! soieson;w"));
-
-app.get('/ree', (req,res)=>res.send("you passed"));
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-function function_declared(req, res)
-{
-    //const __dirname = path.dirname(__filename);
-    const file_path = path.join(__dirname, "package.json");
-    res.sendFile(file_path);
-}
-
-
-app.get('/function_callback', function_declared)
-
-app.listen(PORT, ()=>console.log("listening right now hahah")) 
-//this is a comment to test the connection on github
-
-//console.log(process.env.PORT)
-*/
-
 // server.js
 import express from 'express';
 import dotenv from 'dotenv';
 import hahaRoutes from './src/routes/haha.js';
 import reeRoutes from './src/routes/ree.js';
 import path from 'path';
+//import mongoose from "mongoose"; 
+import userRoutes from "./src/routes/userRoutes.js";
+import "./db.js";
 
 dotenv.config();
 const app = express();
@@ -97,6 +56,12 @@ app.post('/submit', (req, res)=>{
     console.log(`my second form ${req.body.username}`)
     res.send("You got it! :D ")
 })
+
+app.get('/mongoDb_Test', (req, res)=>{
+    res.render('mongoDb_test_ejs');
+})
+
+app.use("/users", userRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

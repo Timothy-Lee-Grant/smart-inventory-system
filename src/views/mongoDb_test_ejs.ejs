@@ -1,0 +1,17 @@
+<form id="mongoDb_form">
+    <input type="text" id="input_data">
+    <button id="button_element" onclick="Submit_Data()">Submit your info here!</button>
+</form>
+
+<script>
+    function Submit_Data(){
+        let userName = document.getElementById("input_data").value;
+
+        fetch("/users/submitMongo", 
+        {   method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({userName})
+        }).then(response=>response.text())
+        .then(server_response_text=>alert("The Resonse Is: " + server_response_text));
+    }
+</script>
