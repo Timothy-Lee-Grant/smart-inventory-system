@@ -7,6 +7,8 @@ import path from 'path';
 //import mongoose from "mongoose"; 
 import userRoutes from "./src/routes/userRoutes.js";
 import "./db.js";
+import cors from "cors";
+
 
 dotenv.config();
 const app = express();
@@ -17,6 +19,9 @@ app.use('/haha', hahaRoutes);
 app.use('/ree', reeRoutes);
 app.use(express.static('src/public'));
 app.use(express.urlencoded({ extended: true }));
+//const cors = require("cors");
+app.use(cors());
+
 
 
 app.set('view engine', 'ejs');

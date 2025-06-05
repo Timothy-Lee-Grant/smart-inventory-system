@@ -4,14 +4,48 @@
 </form>
 
 <script>
+    
     function Submit_Data(){
         let userName = document.getElementById("input_data").value;
-
+        console.log("Up here!! seuhaouwahf");
+        /*
         fetch("/users/submitMongo", 
         {   method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({userName})
         }).then(response=>response.text())
         .then(server_response_text=>alert("The Resonse Is: " + server_response_text));
+    }
+    
+        fetch("/users/submitMongo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userName })
+        })
+        .then(response => {
+            console.log("Fetch response:", response);
+            return response.text();
+        })
+        .then(server_response_text => {
+            console.log("Server said:", server_response_text);
+            alert("The Response Is: " + server_response_text);
+        });
+        */
+            fetch("/users/submitMongo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userName })
+        })
+        .then(response => {
+            console.log("Hello?");
+            //console.log("Fetch response:", response);
+            return response.text();
+        })
+        .then(server_response_text => {
+            console.log("Server said:", server_response_text);  // Add logging here
+            alert("The Response Is: " + server_response_text);
+        })
+        .catch(error => console.error("Fetch error:", error));  // Catch fetch errors
+
     }
 </script>
