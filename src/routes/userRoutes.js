@@ -25,4 +25,6 @@ router.get("/allUsers", async (req, res) => {
   }
 });
 
+
+
 export default router;
