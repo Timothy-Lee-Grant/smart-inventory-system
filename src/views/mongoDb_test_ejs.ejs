@@ -14,39 +14,25 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <div class="form_container">
-        <h2>Person Information</h2>
-        <input type="text" id="person_name" placeholder="Person's Name">
-        <input type="number" id="person_age" placeholder="Person's Age">
-        <input type="text" id="person_company" placeholder="Person's Company">
-        <button onclick="SubmitPerson()">Submit Person</button>
-    </div>
-
-    <div class="form_container">
-        <h2>Company Information</h2>
-        <input type="text" id="company_name" placeholder="Company's Name">
-        <input type="number" id="company_market_cap" placeholder="Company's Market Cap">
-        <button onclick="SubmitCompany()">Submit Company</button>
-    </div>
+    <input type="text" id="input_data">
+    <button id="button_element" onclick="Submit_Data()">Submit here! :D</button>
 </body>
 </html>
 
 <script>
     
-    function Submit_Person(){
-        let personName = document.getElementById("person_name").value;
-        let personAge = document.getElementById("person_age").value;
-        let personCompany = document.getElementById("person_company").value;
-        
-        console.log("inside of the submit person function");
+    function Submit_Data(){
+        let userName = document.getElementById("input_data").value;
+        console.log("Up here!! seuhaouwahf");
 
-            fetch("/people/submitPeople", {
+            fetch("/users/submitMongo", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ personName, personAge, personCompany })
+            body: JSON.stringify({ userName })
         })
         .then(response => {
-            console.log("person post request");
+            console.log("Hello?");
+            //console.log("Fetch response:", response);
             return response.text();
         })
         .then(server_response_text => {
@@ -54,27 +40,6 @@
             alert("The Response Is: " + server_response_text);
         })
         .catch(error => console.error("Fetch error:", error));  // Catch fetch errors
-    }
 
-    function Submit_Company(){
-        let companyName = document.getElementById("company_name").value;
-        let companyMarketCap = document.getElementById("company_market_cap").value;
-        
-        console.log("inside of the submit company function");
-
-            fetch("/people/submitPeople", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ companyName, companyMarketCap })
-        })
-        .then(response => {
-            console.log("company post request");
-            return response.text();
-        })
-        .then(server_response_text => {
-            console.log("Server said:", server_response_text);  // Add logging here
-            alert("The Response Is: " + server_response_text);
-        })
-        .catch(error => console.error("Fetch error:", error));  // Catch fetch errors
     }
 </script>
