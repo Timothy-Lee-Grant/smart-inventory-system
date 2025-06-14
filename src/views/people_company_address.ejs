@@ -10,14 +10,14 @@
         <input type="text" id="person_name" placeholder="Person's Name">
         <input type="number" id="person_age" placeholder="Person's Age">
         <input type="text" id="person_company" placeholder="Person's Company">
-        <button onclick="SubmitPerson()">Submit Person</button>
+        <button onclick="Submit_Person()">Submit Person</button>
     </div>
 
     <div class="form_container">
         <h2>Company Information</h2>
         <input type="text" id="company_name" placeholder="Company's Name">
         <input type="number" id="company_market_cap" placeholder="Company's Market Cap">
-        <button onclick="SubmitCompany()">Submit Company</button>
+        <button onclick="Submit_Company()">Submit Company</button>
     </div>
 </body>
 </html>
@@ -25,6 +25,7 @@
 <script>
     
     function Submit_Person(){
+        console.log("Hello, is anyone here?");
         let personName = document.getElementById("person_name").value;
         let personAge = document.getElementById("person_age").value;
         let personCompany = document.getElementById("person_company").value;
@@ -53,7 +54,7 @@
         
         console.log("inside of the submit company function");
 
-            fetch("/people/submitPeople", {
+            fetch("/company/submitCompany", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ companyName, companyMarketCap })

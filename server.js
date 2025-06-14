@@ -8,6 +8,8 @@ import path from 'path';
 import userRoutes from "./src/routes/userRoutes.js";
 import "./db.js";
 import cors from "cors";
+import peopleRoutes from "./src/routes/peopleRoutes.js";
+import companyRoutes from "./src/routes/companyRoutes.js";
 
 
 dotenv.config();
@@ -67,6 +69,13 @@ app.get('/mongoDb_Test', (req, res)=>{
 })
 
 app.use("/users", userRoutes);
+
+app.use("/people", peopleRoutes);
+app.use("/company", companyRoutes);
+
+app.get("/entitySubmit", (req, res)=>{
+    res.render('people_company_address');
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
