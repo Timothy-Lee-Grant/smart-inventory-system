@@ -5,6 +5,9 @@ const router = express.Router();
 
 router.post("/submitPeople", async (req, res)=>{
     try {
+        //console.log("request body: " + req.body) #wrong
+        //console.log("request body: ", req.body)  #correct way
+        console.log("request body: " + JSON.stringify(req.body) );
         const newPerson = new people(req.body);
         await newPerson.save();
         res.send("got it");

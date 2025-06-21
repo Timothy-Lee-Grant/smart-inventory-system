@@ -35,7 +35,8 @@
             fetch("/people/submitPeople", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ personName, personAge, personCompany })
+            //body: JSON.stringify({ personName, personAge, personCompany })
+            body: JSON.stringify({ personName, personAge })
         })
         .then(response => {
             console.log("person post request");

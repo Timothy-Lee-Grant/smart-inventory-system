@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post("/submitMongo", async (req, res) => {
   try {
+    console.log("request body: " + req.body)
     const newUser = new User(req.body);
     console.log(newUser.userName);
     await newUser.save();
