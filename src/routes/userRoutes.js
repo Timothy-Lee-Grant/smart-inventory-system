@@ -3,6 +3,29 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /users/submitMongo:
+ *   post:
+ *     summary: Submit a new person
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               age:
+ *                 type: number
+ *               company:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Person submitted successfully
+ */
+
 router.post("/submitMongo", async (req, res) => {
   try {
     console.log("request body: " + req.body)
@@ -16,6 +39,13 @@ router.post("/submitMongo", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /users/allUsers:
+ *   get:
+ *     summary: Get a list of all people
+ *     ...
+ */
 router.get("/allUsers", async (req, res) => {
   try {
     const users = await User.find(); // Fetch all users

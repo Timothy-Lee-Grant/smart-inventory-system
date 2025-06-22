@@ -10,7 +10,8 @@ import "./db.js";
 import cors from "cors";
 import peopleRoutes from "./src/routes/peopleRoutes.js";
 import companyRoutes from "./src/routes/companyRoutes.js";
-
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from "swagger-ui-express";
 
 dotenv.config();
 const app = express();
@@ -24,6 +25,41 @@ app.use(express.urlencoded({ extended: true }));
 //const cors = require("cors");
 app.use(cors());
 
+/*
+//setting up swagger
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "My API", 
+            version: "1.0.0",
+            description: "API documention for my project",
+        },
+        servers: [{url: "http://localhost:5000"}],
+    },
+    apis: ["./routes/*.js"], //path to route files with JSDoc comments
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+*/
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "My API",
+      version: "1.0.0",
+      description: "API documentation for my project",
+    },
+    servers: [{ url: "http://localhost:5000" }],
+  },
+  apis: ["./server.js", "src/routes/*.js"], // Path to your route files with JSDoc comments
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 
 
 app.set('view engine', 'ejs');
@@ -34,6 +70,16 @@ app.use((req, res, next)=>{
     next();
 });
 
+
+/**
+ * @swagger
+ * /index:
+ *   get:
+ *     summary: Returns a greeting
+ *     responses:
+ *       200:
+ *         description: A successful response
+ */
 app.get('/index', (req, res) => {
     console.log("inside of the index one");
     res.render('index', { title: "About Us", message: "Here's some info about us." });

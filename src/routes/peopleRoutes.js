@@ -3,6 +3,28 @@ import people from "../models/people.js"
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /people/submitPeople:
+ *   post:
+ *     summary: Submit a new person to the database
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               age:
+ *                 type: number
+ *               company:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successfully added person
+ */
 router.post("/submitPeople", async (req, res)=>{
     try {
         //console.log("request body: " + req.body) #wrong
@@ -24,6 +46,13 @@ router.post("/submitPeople", async (req, res)=>{
     //res.send("got it");
 });
 
+/**
+ * @swagger
+ * /people/allPeople:
+ *   get:
+ *     summary: Get a list of all people
+ *     ...
+ */
 router.get("/allPeople", async (req, res)=>{
     const data = await people.find();
     console.log(data);
