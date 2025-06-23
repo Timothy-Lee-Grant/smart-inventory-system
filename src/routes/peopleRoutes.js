@@ -3,6 +3,12 @@ import people from "../models/people.js"
 
 const router = express.Router();
 
+router.get("/whoToDelete", async (req,res)=>{
+    console.log("At least you hit the endpoint");
+    const allPeople = await people.find();
+    res.render("find_delete_people", {people: allPeople});
+})
+
 /**
  * @swagger
  * /people/submitPeople:
@@ -51,12 +57,47 @@ router.post("/submitPeople", async (req, res)=>{
  * /people/allPeople:
  *   get:
  *     summary: Get a list of all people
- *     ...
+ *     
  */
 router.get("/allPeople", async (req, res)=>{
     const data = await people.find();
     console.log(data);
     res.json(data);
+})
+
+/**
+ * @swagger
+ * /people/deletePerson/{id}:
+ *   delete:
+ *     summary: Delete a person by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The MongoDB ObjectId of the person
+ *     responses:
+ *       200:
+ *         description: Person deleted successfully
+ *       404:
+ *         description: Person not found
+ *       500:
+ *         description: Server error
+ */
+router.delete("/deletePerson/:id", async(req, res)=>{
+    try{
+        const individualPerson = await people.findByIdAndDelete(req.params.id);  
+        console.log("Im inside of here!!!");
+        console.log(individualPerson);
+        if (!individualPerson){
+            return res.status(404).send("Person not found"); 
+        }
+        return res.status(200).send("It has been deleted!");
+    }catch(err){
+        return res.status(404).send(err)
+    }
+    
 })
 
 export default router;

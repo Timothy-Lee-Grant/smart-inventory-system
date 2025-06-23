@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>People List</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+    }
+    .person {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+    }
+    .person button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>All People</h1>
+  <div id="peopleList">
+    <% people.forEach(person => { %>
+      <div class="person" data-id="<%= person._id %>">
+        <strong><%= person.personName %></strong> —
+        Age: <%= person.personAge %>,
+        Company: <%= person.personCompany %>
+        <button onclick="deletePerson('<%= person._id %>')">Delete</button>
+      </div>
+    <% }) %>
+  </div>
+
+  <script>
+    async function deletePerson(id) {
+      if (!confirm("Are you sure you want to delete this person?")) return;
+
+      const res = await fetch(`/people/deletePerson/${id}`, {
+        method: "DELETE"
+      });
+
+      if (res.ok) {
+        document.querySelector(`[data-id="${id}"]`).remove();
+      } else {
+        alert("Failed to delete person");
+      }
+    }
+  </script>
+</body>
+</html>
