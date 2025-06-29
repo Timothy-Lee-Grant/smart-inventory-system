@@ -1,11 +1,13 @@
 import express from "express";
-import people from "../models/people.js"
+import people from "../models/people.js";
+import company from "../models/company.js"
 
 const router = express.Router();
 
 router.get("/whoToDelete", async (req,res)=>{
     console.log("At least you hit the endpoint");
     const allPeople = await people.find();
+    console.log(allPeople);
     res.render("find_delete_people", {people: allPeople});
 })
 
@@ -38,6 +40,10 @@ router.post("/submitPeople", async (req, res)=>{
         console.log("request body: " + JSON.stringify(req.body) );
         const newPerson = new people(req.body);
         await newPerson.save();
+
+        const specifcCompanyAmazon = await company.findOne({name:'amazon'});
+        specifcCompanyAmazon.employees.push(newPerson._id);
+        await specifcCompanyAmazon.save();
         res.send("got it");
     }
     catch(error){

@@ -7,7 +7,7 @@
       font-family: sans-serif;
       margin: 2em;
     }
-    .person {
+    .company {
       padding: 10px;
       margin-bottom: 10px;
       border: 1px solid #ccc;
@@ -21,23 +21,24 @@
   </style>
 </head>
 <body>
-  <h1>All People</h1>
-  <div id="peopleList">
-    <% people.forEach(person => { %>
-      <div class="person" data-id="<%= person._id %>">
-        <strong><%= person.personName %></strong> —
-        Age: <%= person.personAge %>,
-        Company: <%= person.personCompany %>
-        <button onclick="deletePerson('<%= person._id %>')">Delete</button>
+  <h1>All Companies</h1>
+  <div id="companyList">
+    <% companies.forEach(company => { %>
+      <div class="company" data-id="<%= company._id %>">
+        <strong><%= company.name %></strong> —
+        Market Cap: <%= company.marketCap %>,
+        Industry: <%= company.industry %>,
+        Employees: <%= company.employees %>
+        <button onclick="deleteCompany('<%= company._id %>')">Delete</button>
       </div>
     <% }) %>
   </div>
 
   <script>
-    async function deletePerson(id) {
+    async function deleteCompany(id) {
       if (!confirm("Are you sure you want to delete this person?")) return;
 
-      const res = await fetch(`/people/deletePerson/${id}`, {
+      const res = await fetch(`/company/deleteCompany/${id}`, {
         method: "DELETE"
       });
 

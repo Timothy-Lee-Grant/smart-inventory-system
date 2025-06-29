@@ -28,7 +28,8 @@
         console.log("Hello, is anyone here?");
         let personName = document.getElementById("person_name").value;
         let personAge = document.getElementById("person_age").value;
-        let personCompany = document.getElementById("person_company").value;
+        //let personCompany = document.getElementById("person_company").value;
+        let personCompany = '686099f3602666ecf2657a4b';
         
         console.log("inside of the submit person function");
 
@@ -36,7 +37,7 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             //body: JSON.stringify({ personName, personAge, personCompany })
-            body: JSON.stringify({ personName, personAge })
+            body: JSON.stringify({ personName, personAge, personCompany })
         })
         .then(response => {
             console.log("person post request");
@@ -50,15 +51,15 @@
     }
 
     function Submit_Company(){
-        let companyName = document.getElementById("company_name").value;
-        let companyMarketCap = document.getElementById("company_market_cap").value;
+        let name = document.getElementById("company_name").value;
+        let marketCap = document.getElementById("company_market_cap").value;
         
         console.log("inside of the submit company function");
 
             fetch("/company/submitCompany", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ companyName, companyMarketCap })
+            body: JSON.stringify({ name, marketCap })
         })
         .then(response => {
             console.log("company post request");

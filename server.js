@@ -66,7 +66,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(path.resolve(), './src/views'));
 
 app.use((req, res, next)=>{
-    console.log("I am in my middlewear function");
+    //console.log("I am in my middlewear function");
     next();
 });
 
