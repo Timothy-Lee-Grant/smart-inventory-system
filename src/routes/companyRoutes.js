@@ -26,6 +26,11 @@ router.delete('/deleteCompany/:id', async (req,res)=>{
     
 });
 
+router.get('/allCompanyInfo', async(req,res)=>{
+    const allCompaniesInfo = await company.find();
+    res.status(200).json(allCompaniesInfo);
+})
+
 router.get('/findCompany', async (req,res)=>{
     const listOfCompanies = await company.find();
     res.render("find_delete_company", {companies:listOfCompanies})

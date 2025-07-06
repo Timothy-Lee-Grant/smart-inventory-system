@@ -9,7 +9,12 @@
         <h2>Person Information</h2>
         <input type="text" id="person_name" placeholder="Person's Name">
         <input type="number" id="person_age" placeholder="Person's Age">
-        <input type="text" id="person_company" placeholder="Person's Company">
+        <select id="person_company">
+            <option value="">Select a company</option>
+            <% allCompanies.forEach(company => { %>
+            <option value="<%= company._id %>"><%= company.name %></option>
+            <% }) %>
+        </select>
         <button onclick="Submit_Person()">Submit Person</button>
     </div>
 
@@ -28,8 +33,9 @@
         console.log("Hello, is anyone here?");
         let personName = document.getElementById("person_name").value;
         let personAge = document.getElementById("person_age").value;
+        let personCompany = document.getElementById("person_company").value;
         //let personCompany = document.getElementById("person_company").value;
-        let personCompany = '686099f3602666ecf2657a4b';
+        //let personCompany = '686099f3602666ecf2657a4b';
         
         console.log("inside of the submit person function");
 

@@ -3,6 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import hahaRoutes from './src/routes/haha.js';
 import reeRoutes from './src/routes/ree.js';
+import handlerRoutes from './src/routes/handler.js'
 import path from 'path';
 //import mongoose from "mongoose"; 
 import userRoutes from "./src/routes/userRoutes.js";
@@ -12,6 +13,7 @@ import peopleRoutes from "./src/routes/peopleRoutes.js";
 import companyRoutes from "./src/routes/companyRoutes.js";
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from "swagger-ui-express";
+
 
 dotenv.config();
 const app = express();
@@ -118,6 +120,8 @@ app.use("/users", userRoutes);
 
 app.use("/people", peopleRoutes);
 app.use("/company", companyRoutes);
+
+app.use("/createEntity", handlerRoutes);
 
 app.get("/entitySubmit", (req, res)=>{
     res.render('people_company_address');
