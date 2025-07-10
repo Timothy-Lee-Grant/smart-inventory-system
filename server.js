@@ -13,7 +13,7 @@ import peopleRoutes from "./src/routes/peopleRoutes.js";
 import companyRoutes from "./src/routes/companyRoutes.js";
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from "swagger-ui-express";
-
+import db_sql from "./db_sql.js";
 
 dotenv.config();
 const app = express();
@@ -126,6 +126,66 @@ app.use("/createEntity", handlerRoutes);
 app.get("/entitySubmit", (req, res)=>{
     res.render('people_company_address');
 })
+
+//addding a testing endpoint to add data into an sql database (mysql)
+/**
+ * @swagger
+ * /register_sql:
+ *   post:
+ *     summary: Register a new user in the MySQL database
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Alice
+ *               email:
+ *                 type: string
+ *                 example: alice@example.com
+ *     responses:
+ *       201:
+ *         description: User successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 name:
+ *                   type: string
+ *                   example: Alice
+ *                 email:
+ *                   type: string
+ *                   example: alice@example.com
+ *       500:
+ *         description: Server error or database failure
+ */
+
+app.post('/register_sql', async (req, res) => {
+  const { name, email } = req.body;
+  try {
+    const [result] = await db_sql.execute(
+      'INSERT INTO users (name, email) VALUES (?, ?)',
+      [name, email]
+    );
+    console.log("78787");
+    res.status(201).json({ id: result.insertId, name, email });
+  } catch (err) {
+    console.log("bad news");
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
